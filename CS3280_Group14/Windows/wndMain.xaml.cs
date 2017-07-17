@@ -21,17 +21,34 @@ namespace CS3280_Group14
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Search Window
+        /// </summary>
+        private wndSearch search;
+
+        /// <summary>
+        /// Edit Window
+        /// </summary>
+        private wndEdit edit;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;  //shut down application only when main window is closed
+
+            //Initialize windows
+            search = new wndSearch();
+            edit = new wndEdit();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                wndSearch search = new wndSearch();
-                search.ShowDialog();
+                Hide();//Hide this window
+                search.ShowDialog();//display search window
+                Show();//show this window
             }
             catch (Exception ex)
             {
@@ -44,8 +61,9 @@ namespace CS3280_Group14
         {
             try
             {
-                wndEdit edit = new wndEdit();
+                Hide();
                 edit.ShowDialog();
+                Show();
             }
             catch (Exception ex)
             {
