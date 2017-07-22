@@ -130,7 +130,7 @@ namespace CS3280_Group14
         {
             try
             {
-                string sSQL = "DELETE FROM Invoices " +
+                string sSQL = "DELETE FROM LineItems " +
                               "WHERE InvoiceNum = " + invoiceNum + " " +
                               "AND LineItemNum = " + lineItemNum + ";";
                 return sSQL;
