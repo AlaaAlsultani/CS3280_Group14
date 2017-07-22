@@ -36,8 +36,19 @@
                     <Button Content="Add Selected Item" Margin="5" Click="AddItem_Click"/>
                 </StackPanel>
 
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Item Cost:" VerticalAlignment="Center" Margin="60,5,5,5"/>
+                    <TextBox x:Name="txtblkInvoiceTotal" Margin="5" IsReadOnly="True"
+                               Text="{Binding ElementName=cmbBoxItems, Path=SelectedItem.Cost, StringFormat='{}{0:c}'}"/>
+                </StackPanel>
+
                 <Label Content="Invoice Line Items:" Margin="5"/>
                 <DataGrid x:Name="dtgrdInvoiceItems" Margin="5"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Invoice Total:" Margin="5"/>
+                    <Label x:Name="lblInvoiceTotal" Content="$0.00" Margin="5"/>
+                </StackPanel>
 
                 <Button Content="Save Changes" Margin="5" Click="SaveChanges_Click"/>
 

@@ -35,7 +35,7 @@ namespace CS3280_Group14
         {
             try
             {
-                return $"{Description}: {Cost:C}";
+                return Description;
             }
             catch (Exception ex)
             {
