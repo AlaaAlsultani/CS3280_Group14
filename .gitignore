@@ -1,0 +1,10 @@
+**/obj
+*.exe
+*.pdb
+CS3280_Group14/bin/Debug/CS3280_Group14.exe
+CS3280_Group14/bin/Debug/CS3280_Group14.pdb
+CS3280_Group14/bin/Debug/CS3280_Group14.vshost.exe
+CS3280_Group14/bin/Debug/CS3280_Group14.vshost.exe.manifest
+CS3280_Group14/bin/Debug/Invoice.ldb
+CS3280_Group14/bin/Debug/CS3280_Group14.exe.config
+CS3280_Group14/bin/Debug/CS3280_Group14.vshost.exe.config
