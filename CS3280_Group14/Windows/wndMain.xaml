@@ -5,12 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CS3280_Group14"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
+        Title="MainWindow" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+    <StackPanel>
         <Menu x:Name="menu" HorizontalAlignment="Stretch"  VerticalAlignment="Top" >
-            <MenuItem Header="Search" Click="MenuItem_Click"/>
-            <MenuItem Header="Edit" Click="MenuItem_Click_1"/>
+            <MenuItem Header="Search for Invoice" Click="Search_Click"/>
+            <MenuItem Header="Update Item Table" Click="Edit_Click"/>
         </Menu>
 
-    </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Create New Invoice" Margin="10" Click="NewInvoice_Click"/>
+            <Button Content="Edit Current Invoice" Margin="10" Click="EditInvoice_Click"/>
+            <Button Content="Delete Current Invoice" Margin="10" Click="DeleteInvoice_Click"/>
+        </StackPanel>
+
+        <GroupBox x:Name="grpboxInvoice" Header="Current Invoice" Margin="10" IsEnabled="False">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Invoice Number:" Margin="5"/>
+                    <Label x:Name="lblInvoiceNum" Content="None Selected" Margin="5"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Invoice Date:" Margin="5"/>
+                    <DatePicker x:Name="dpInvoiceDate"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Add Item to Invoice:" Margin="5" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cmbBoxItems" Margin="5"/>
+                    <Button Content="Add Selected Item" Margin="5" Click="AddItem_Click"/>
+                </StackPanel>
+
+                <Label Content="Invoice Line Items:" Margin="5"/>
+                <DataGrid x:Name="dtgrdInvoiceItems" Margin="5"/>
+
+                <Button Content="Save Changes" Margin="5" Click="SaveChanges_Click"/>
+
+            </StackPanel>
+        </GroupBox>
+
+
+    </StackPanel>
 </Window>

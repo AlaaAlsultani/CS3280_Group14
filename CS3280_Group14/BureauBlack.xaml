@@ -402,9 +402,9 @@
                         <Trigger Property="IsEnabled" Value="true" />
                         <Trigger Property="IsEnabled" Value="false">
 
-                            <Trigger.EnterActions>
+                            <!--<Trigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource DisabledOn}" />
-                            </Trigger.EnterActions>
+                            </Trigger.EnterActions>-->
 
                             <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}" />
                             <Setter Property="Opacity" TargetName="DisabledVisualElement" Value="1" />

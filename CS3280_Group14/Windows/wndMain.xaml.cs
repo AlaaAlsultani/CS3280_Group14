@@ -24,31 +24,36 @@ namespace CS3280_Group14
         /// <summary>
         /// Search Window
         /// </summary>
-        private wndSearch search;
-
+        private wndSearch searchWindow;
         /// <summary>
         /// Edit Window
         /// </summary>
-        private wndEdit edit;
+        private wndEdit editWindow;
+        /// <summary>
+        /// Object for running queries on database
+        /// </summary>
+        private clsDBQueries queries;
 
+        /// <summary>
+        /// Main Window Constructor
+        /// </summary>
         public MainWindow()
-        {
-            InitializeComponent();
-
-            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;  //shut down application only when main window is closed
-
-            //Initialize windows
-            search = new wndSearch();
-            edit = new wndEdit();
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                Hide();//Hide this window
-                search.ShowDialog();//display search window
-                Show();//show this window
+                InitializeComponent();
+
+                Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;  //shut down application only when main window is closed
+
+                //Initialize windows
+                searchWindow = new wndSearch();
+                editWindow = new wndEdit();
+
+                //Initialize query object
+                queries = new clsDBQueries();
+
+                //Bind ComboBox to Items in database
+                cmbBoxItems.ItemsSource = queries.GetItems();
             }
             catch (Exception ex)
             {
@@ -57,13 +62,133 @@ namespace CS3280_Group14
             }
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Open Search Window Logic
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Hide();//Hide this window
+                searchWindow.ShowDialog();//display search window
+                Show();//show this window
+
+                //Get Select Invoice from searchWindow and Populate the data in the current window's form
+
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Open Edit Window Logic
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Edit_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 Hide();
-                edit.ShowDialog();
+                editWindow.ShowDialog();
                 Show();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Handles New Invoice Click Event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NewInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Reset fields in window and then unlock them for editing
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Handles Edit Invoice Click Event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Check if an invoice is selected and then unlock the UI for edits
+                grpboxInvoice.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+        
+        /// <summary>
+        /// Handles Delete Invoice Click Event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Check if an invoice is selected and the delete the invoice
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Handles Add Item Click Event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Adds the Currently selected item to the datagrid
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Handles Save Changes event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveChanges_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Save Changes to Current Invoice and disable UI
+                grpboxInvoice.IsEnabled = false;
             }
             catch (Exception ex)
             {

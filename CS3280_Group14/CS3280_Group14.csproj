@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Classes\clsDataAccess.cs" />
     <Compile Include="Classes\clsDBQueries.cs" />
+    <Compile Include="Classes\clsSQL.cs" />
     <Compile Include="Classes\clsInvoice.cs" />
     <Compile Include="Classes\clsItem.cs" />
     <Compile Include="Windows\wndEdit.xaml.cs">
