@@ -6,8 +6,57 @@
         xmlns:local="clr-namespace:CS3280_Group14"
         mc:Ignorable="d"
         Closing="Window_Closing"
-        Title="wndSearchWindow" Height="300" Width="300">
-    <Grid>
-        
+        Title="Search" Height="588.235" Width="527.731">
+    <Grid Margin="0,0,0,-1">
+        <TabControl HorizontalAlignment="Left" Height="488" Margin="10,29,0,0" VerticalAlignment="Top" Width="500">
+            <TabItem Header="Invoice" Margin="0,0,-110,0">
+                <Grid Background="#FFE5E5E5" Height="438" Width="493">
+                    <Label Content="Select Invoice" Margin="98,113,315,305" />
+                    <ComboBox HorizontalAlignment="Left" Margin="207,113,0,0" Name="cmbInvoiceNums" VerticalAlignment="Top" Width="156" SelectionChanged="ComboBox_SelectionChanged"/>
+                    <GroupBox Header="Information" HorizontalAlignment="Left" Height="76" Margin="33,145,0,0" VerticalAlignment="Top" Width="427">
+                        <StackPanel>
+                            <Label Content="Invoice Number: " Margin="0,0,299,0"/>
+                            <Label Content=" " x:Name="lblInvoiceNum" Margin="121,-15,174,0" Height="14"/>
+                            <Label Content="Invoice Date: " Margin="0,0,299,0" />
+                            <Label Content=" " Name="lblInvoiceDate" Margin="121,-15,174,0" />
+                            <Label Content="Invoice Cost: " Margin="0,0,299,0" />
+                            <Label Content=" " Name="lblInvoiceCost" Margin="121,-15,174,0" />
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Contents" HorizontalAlignment="Left" Height="202" Margin="33,226,0,0" VerticalAlignment="Top" Width="427">
+                        <DataGrid HorizontalAlignment="Left" Name="dgInvoiceContents" Height="155" Margin="10,10,0,0" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto" Width="394"/>
+                    </GroupBox>
+                    <Label Content="Begin Date" Margin="98,18,329,404" />
+                    <DatePicker HorizontalAlignment="Left" Margin="85,39,0,0" VerticalAlignment="Top" SelectedDate="4/25/2004" Name="dpBeginDate" />
+                    <Label Content="End Date" Margin="285,18,142,404" />
+                    <DatePicker HorizontalAlignment="Left" Margin="247,39,0,0" VerticalAlignment="Top" SelectedDate="4/8/2016" Name="dpEndDate" />
+                    <Button Content="Submit Date Range" Name="cmdSubmitRange" HorizontalAlignment="Left" Margin="175,75,0,0" VerticalAlignment="Top" Width="119" Click="cmdSubmitRange_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Item" Margin="116,0,-235,0">
+                <Grid Background="#FFE5E5E5" Height="439" Width="493">
+                    <Label Content="Select Item: " Margin="218,10,183,409"/>
+                    <ComboBox HorizontalAlignment="Left" Name="cmbItems"  Margin="327,10,0,0" VerticalAlignment="Top" Width="156" SelectionChanged="cmbItems_SelectionChanged"/>
+                    <GroupBox Header="Item Information" HorizontalAlignment="Left" Height="100" Margin="110,35,0,0" VerticalAlignment="Top" Width="284">
+                        <StackPanel HorizontalAlignment="Left" Height="56" Margin="0,10,-2,0" VerticalAlignment="Top" Width="274">
+                            <Label Content="Item Code: " Margin="0,0,172,0"/>
+                            <Label Content=" " x:Name="lblItemCode" Margin="107,-15,61,0" />
+                            <Label Content="Item Description: " Margin="0,0,172,0" />
+                            <Label Content=" " Name="lblItemDesc" Margin="107,-15,10,0" />
+                            <Label Content="Item Cost: " Margin="0,0,172,0" />
+                            <Label Content=" " Name="lblItemCost" Margin="107,-15,61,0" />
+                        </StackPanel>
+                    </GroupBox>
+
+                    <Label Content="Invoices Containing Item" Margin="149,150,158,267" FontSize="16" />
+                    <DataGrid HorizontalAlignment="Left" Name="dgInvoicesWithItem" Height="136" VerticalScrollBarVisibility="Auto" Margin="149,184,0,0" VerticalAlignment="Top" Width="186"/>
+
+                </Grid>
+            </TabItem>
+
+
+        </TabControl>
+        <Button Content="Close"  Name="cmdClose" HorizontalAlignment="Left" Margin="155,528,0,0" VerticalAlignment="Top" Width="188" Click="cmdClose_Click"/>
+
     </Grid>
 </Window>

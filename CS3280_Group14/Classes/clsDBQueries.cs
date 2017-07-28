@@ -84,5 +84,91 @@ namespace CS3280_Group14
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// Execute query to get invoice numbers and put them into a list
+        /// </summary>
+        /// <param name="sBegin">BEgin date</param>
+        /// <param name="sEnd">End date</param>
+        /// <returns>List of invoice numbers</returns>
+        public List<int> GetInvoiceNumbersByDateRange(string sBegin, string sEnd)
+        {
+            try
+            {
+                List<int> lstInvoiceNum = new List<int>();
+
+                int iNumReturned = 0;
+
+                //create data set and execute sql statement
+                DataSet ds = db.ExecuteSQLStatement(sql.GetInvoiceNumbersByDateRange(sBegin,sEnd), ref iNumReturned);
+
+                //loop through data set and set returns to string then to int and add to list
+                for (int i = 0; i < iNumReturned; i++)
+                {
+                    lstInvoiceNum.Add(Int32.Parse(ds.Tables[0].Rows[i].ToString()));
+                }
+
+                return lstInvoiceNum;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Execute query to get all item descriptions into a list
+        /// </summary>
+        /// <returns>List of item descriptions</returns>
+        public List<string> GetItemsDesc()
+        {
+            try
+            {
+                List<string> lstItems = new List<string>();
+
+                int iNumReturned = 0;
+
+                //create data set and execute sql statement
+                DataSet ds = db.ExecuteSQLStatement(sql.GetItems(), ref iNumReturned);
+
+                //loop through data set and set returns to string then to int and add to list
+                for (int i = 0; i < iNumReturned; i++)
+                {
+                    lstItems.Add(ds.Tables[0].Rows[i].ToString());
+                }
+
+                return lstItems;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Get all invoices that containg selected item
+        /// </summary>
+        /// <param name="sItemCode">Item code of current item</param>
+        /// <returns>data set containing invoices</returns>
+        public DataSet GetInvoicesContainingItem(string sItemCode)
+        {
+            try
+            {
+                int iNumReturned = 0;
+
+                //create data set and execute sql statement
+                DataSet ds = db.ExecuteSQLStatement(sql.GetInvoicesContainingItem(sItemCode), ref iNumReturned);
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
     }
 }

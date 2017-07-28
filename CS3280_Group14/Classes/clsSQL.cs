@@ -165,6 +165,113 @@ namespace CS3280_Group14
 
         #region Search Window SQL
 
+        /// <summary>
+        /// Generates sql string to return all invoice numbers
+        /// </summary>
+        /// <param name="sBegin">Begin Date of Range (Default value is 4/25/2004)</param>
+        /// <param name="sEnd">End Date of Range (Default value is 4/8/2016)</param>
+        /// <returns>sql query string for getting invoice numbers</returns>
+        public string GetInvoiceNumbersByDateRange(string sBegin, string sEnd)
+        {
+            try {
+                return "SELECT InvoiceNum FROM INVOICE WHERE InvoiceDate >= '" + sBegin + "' AND InvoiceDate <= '" + sEnd + "';";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Generate sql query string for getting invoice information by invoiceNum
+        /// </summary>
+        /// <param name="sInvoiceNum">Invoice Number</param>
+        /// <returns>sql query string</returns>
+        public string GetInvoice(string sInvoiceNum)
+        {
+            try
+            {
+                return "SELECT InvoiceNum, InvoiceDate, TotalCharge FROM INVOICE WHERE InvoiceNum = " + sInvoiceNum + ";";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Generate sql query string for getting contents of invoice
+        /// </summary>
+        /// <param name="sInvoiceNum">Invoice Number</param>
+        /// <returns>sql query string</returns>
+        public string GetInvoiceContents(string sInvoiceNum)
+        {
+            try
+            {
+                return "SELECT ItemDesc, Cost FROM ITEMDESC WHERE ITEMDESC.ITEMCODE = LINEITEMS.ITEMCODE AND InvoiceNum = " + sInvoiceNum + ";";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Generate sql query string to grab all item descriptions
+        /// </summary>
+        /// <returns>sql query string</returns>
+        public string GetItems()
+        {
+            try
+            {
+                return "SELECT ItemDesc FROM ItemDesc ORDER BY ItemCode;";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Generate sql query code to grab item information by item description
+        /// </summary>
+        /// <param name="sItemDesc">Item description</param>
+        /// <returns>sql query string</returns>
+        public string GetItemInformation(string sItemDesc)
+        {
+            try
+            {
+                return "SELECT ItemCode, ItemDesc, Cost FROM ItemDesc WHERE ItemDesc = '" + sItemDesc + "';";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Generate sql query string to get invoices that contain current item
+        /// </summary>
+        /// <param name="sItemCode">Item code</param>
+        /// <returns>sql query string</returns>
+        public string GetInvoicesContainingItem(string sItemCode)
+        {
+            try
+            {
+                return "SELECT DISTINCT InvoiceNum FROM LineItems WHERE ItemCode = '" + sItemCode + "';";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
         #endregion
 
 
