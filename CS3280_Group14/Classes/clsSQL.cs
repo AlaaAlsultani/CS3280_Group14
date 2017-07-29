@@ -174,7 +174,7 @@ namespace CS3280_Group14
         public string GetInvoiceNumbersByDateRange(string sBegin, string sEnd)
         {
             try {
-                return "SELECT InvoiceNum FROM INVOICE WHERE InvoiceDate >= '" + sBegin + "' AND InvoiceDate <= '" + sEnd + "';";
+                return "SELECT InvoiceNum FROM INVOICES WHERE InvoiceDate >= CDate('" + sBegin + "') AND InvoiceDate <= CDate('" + sEnd + "');";
             }
             catch (Exception ex)
             {
@@ -192,7 +192,7 @@ namespace CS3280_Group14
         {
             try
             {
-                return "SELECT InvoiceNum, InvoiceDate, TotalCharge FROM INVOICE WHERE InvoiceNum = " + sInvoiceNum + ";";
+                return "SELECT InvoiceNum, InvoiceDate, TotalCharge FROM INVOICES WHERE InvoiceNum = " + sInvoiceNum + ";";
             }
             catch (Exception ex)
             {

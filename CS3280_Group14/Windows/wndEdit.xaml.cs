@@ -64,32 +64,32 @@ namespace CS3280_Group14
             }
         }
 
-        /*private void UpdateItem_Click(object sender, RoutedEventArgs e)
+        private void UpdateItem_Click(object sender, RoutedEventArgs e)
         {
-            This method needs to update the selected item from the list.
-            When an item is updated, the code must not be allowed to be updated (is the PK).
-            Only the description and cost may be updated.
-            When user closes the update definition table form, make sure to update the drop-down
-            box as to reflect any changes made by the user.
-            Update the current invoice because its item name might have been updated.
+            //This method needs to update the selected item from the list.
+            //When an item is updated, the code must not be allowed to be updated (is the PK).
+            //Only the description and cost may be updated.
+            //When user closes the update definition table form, make sure to update the drop-down
+            //box as to reflect any changes made by the user.
+            //Update the current invoice because its item name might have been updated.
         }
-        */
 
-        /*private void DeleteItem_Click(object sender, RoutedEventArgs e)
+
+        private void DeleteItem_Click(object sender, RoutedEventArgs e)
         {
-            This method needs to remove the selected item from the list.
-            Running total of the cost should be displayed as items are deleted.
-            If the user tries to delete an item that is on an invoice, don't allow the user
-            to do so.
-            Give the user a warning message that tells them which invoices that item is used on.
+            //This method needs to remove the selected item from the list.
+            //Running total of the cost should be displayed as items are deleted.
+            //If the user tries to delete an item that is on an invoice, don't allow the user
+            //to do so.
+            //Give the user a warning message that tells them which invoices that item is used on.
 
-        */
-
-        /*private void AddNewItem_Click(object sender, RoutedEventArgs e)
-        {
-            This method needs to add an item to the list. 
-            Running total of the cost should be displayed as items are entered.
         }
-        */
+
+        private void AddNewItem_Click(object sender, RoutedEventArgs e)
+        {
+            //This method needs to add an item to the list. 
+            //Running total of the cost should be displayed as items are entered.
+        }
+        
     }
 }

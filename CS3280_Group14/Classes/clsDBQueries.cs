@@ -105,7 +105,7 @@ namespace CS3280_Group14
                 //loop through data set and set returns to string then to int and add to list
                 for (int i = 0; i < iNumReturned; i++)
                 {
-                    lstInvoiceNum.Add(Int32.Parse(ds.Tables[0].Rows[i].ToString()));
+                    lstInvoiceNum.Add(Int32.Parse(ds.Tables[0].Rows[i]["InvoiceNum"].ToString()));
                 }
 
                 return lstInvoiceNum;
@@ -135,7 +135,7 @@ namespace CS3280_Group14
                 //loop through data set and set returns to string then to int and add to list
                 for (int i = 0; i < iNumReturned; i++)
                 {
-                    lstItems.Add(ds.Tables[0].Rows[i].ToString());
+                    lstItems.Add(ds.Tables[0].Rows[i]["ItemDesc"].ToString());
                 }
 
                 return lstItems;
