@@ -276,7 +276,66 @@ namespace CS3280_Group14
 
 
         #region Edit Window SQL
+        /// <summary>
+        /// Add a new item to ItemDesc table
+        /// </summary>
+        /// <param name="sItemCode">Item Code</param>
+        /// <param name="sItemDesc">Item Description</param>
+        /// <param name="Cost">Item Cost</param>
+        /// <returns>sql query string</returns>
+        public string AddNewItem(string sItemCode, string sItemDesc, string Cost)
+        {
+            try
+            {
+                return "INSERT INTO ItemDesc(ItemCode, ItemDesc, Cost) " +
+                              "VALUES(" + sItemCode + ", " + sItemDesc + ", " + Cost + ");";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
+        /// <summary>
+        /// Delete an item from ItemDesc table
+        /// </summary>
+        /// <param name="sItemCode">Item Code</param>
+        /// <returns>sql query string</returns>
+        public string DeleteItem(string sItemCode)
+        {
+            try
+            {
+                return "DELETE FROM ItemDesc WHERE ItemCode = " + sItemCode + ";";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Update an item in the ItemDesc table
+        /// </summary>
+        /// <param name="sOldItemCode">Original item code before update</param>
+        /// <param name="sNewItemCode">New item code</param>
+        /// <param name="sNewItemDesc">New item description</param>
+        /// <param name="NewCost">New item cost</param>
+        /// <returns>sql query string</returns>
+        public string UpdateItem(string sOldItemCode, string sNewItemCode, string sNewItemDesc, string NewCost)
+        {
+            try
+            {
+                return "UPDATE ItemDesc SET ItemCode = " + sNewItemCode + ", ItemDesc = " + sNewItemDesc + ", Cost = " 
+                    + NewCost + " WHERE ItemCode = " + sOldItemCode + ";";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
         #endregion
     }
 }
