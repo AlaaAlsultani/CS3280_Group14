@@ -6,8 +6,34 @@
         xmlns:local="clr-namespace:CS3280_Group14"
         mc:Ignorable="d"
         Closing="Window_Closing"
-        Title="wndEdit" Height="300" Width="300">
+        Title="EditWindow" Height="300" Width="300">
     <Grid>
-        
+        <Button Content="Add New Item" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" FontSize="10"/>
+        <Button Content="Delete Item" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" Width="75" FontSize="10"/>
+        <Button Content="Update Item" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="75" FontSize="10"/>
+        <DataGrid HorizontalAlignment="Left" Height="193" Margin="11,62,0,0" VerticalAlignment="Top" Width="158" RenderTransformOrigin="0.5,0.5" FontSize="10">
+            <DataGrid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.196"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </DataGrid.RenderTransform>
+        </DataGrid>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="176,62,0,0" TextWrapping="Wrap" Text="Code Selected" VerticalAlignment="Top" Width="106" FontSize="10"/>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="176,101,0,0" TextWrapping="Wrap" Text="Cost Selected" VerticalAlignment="Top" Width="106" FontSize="10"/>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="176,140,0,0" TextWrapping="Wrap" Text="Descript. Selected" VerticalAlignment="Top" Width="105" RenderTransformOrigin="0.5,0.5" FontSize="10">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.412"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <Label Content="All Items in a List" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" FontSize="10"/>
+
     </Grid>
 </Window>
