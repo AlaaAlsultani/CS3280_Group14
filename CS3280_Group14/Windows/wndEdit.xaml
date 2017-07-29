@@ -8,9 +8,9 @@
         Closing="Window_Closing"
         Title="EditWindow" Height="300" Width="300">
     <Grid>
-        <Button Content="Add New Item" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" FontSize="10"/>
-        <Button Content="Delete Item" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" Width="75" FontSize="10"/>
-        <Button Content="Update Item" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="75" FontSize="10"/>
+        <Button Content="Add New Item" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" FontSize="10" Click="AddNewItem_Click"/>
+        <Button Content="Delete Item" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" Width="75" FontSize="10" Click="DeleteItem_Click"/>
+        <Button Content="Update Item" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="75" FontSize="10" Click="UpdateItem_Click"/>
         <DataGrid HorizontalAlignment="Left" Height="193" Margin="11,62,0,0" VerticalAlignment="Top" Width="158" RenderTransformOrigin="0.5,0.5" FontSize="10">
             <DataGrid.RenderTransform>
                 <TransformGroup>
