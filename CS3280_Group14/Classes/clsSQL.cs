@@ -70,7 +70,7 @@ namespace CS3280_Group14
             try
             {
                 string sSQL = "UPDATE LineItems " +
-                             "SET ItemCode = " + itemCode + " " +
+                             "SET ItemCode = '" + itemCode + "' " +
                              "WHERE InvoiceNum = " + invoiceNum + " AND LineItemNum = " + lineItemNum + ";";
                 return sSQL;
             }
@@ -92,7 +92,7 @@ namespace CS3280_Group14
             try
             {
                 string sSQL = "INSERT INTO LineItems(InvoiceNum, LineItemNum, ItemCode) " +
-                              "VALUES(" + invoiceNum + ", " + lineItemNum + ", " + itemCode + ");";
+                              "VALUES(" + invoiceNum + ", " + lineItemNum + ", '" + itemCode + "');";
                 return sSQL;
             }
             catch (Exception ex)
@@ -133,6 +133,25 @@ namespace CS3280_Group14
                 string sSQL = "DELETE FROM LineItems " +
                               "WHERE InvoiceNum = " + invoiceNum + " " +
                               "AND LineItemNum = " + lineItemNum + ";";
+                return sSQL;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Delete all Line Items based on an Invoice Number
+        /// </summary>
+        /// <param name="invoiceNum">Selected Invoice Number</param>
+        public string DeleteInvoiceLineItems(string invoiceNum)
+        {
+            try
+            {
+                string sSQL = "DELETE FROM LineItems " +
+                              "WHERE InvoiceNum = " + invoiceNum + ";";
                 return sSQL;
             }
             catch (Exception ex)

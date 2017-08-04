@@ -12,7 +12,7 @@
             <MenuItem Header="Update Item Table" Click="Edit_Click"/>
         </Menu>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel x:Name="btnPanel" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="Create New Invoice" Margin="10" Click="NewInvoice_Click"/>
             <Button Content="Edit Current Invoice" Margin="10" Click="EditInvoice_Click"/>
             <Button Content="Delete Current Invoice" Margin="10" Click="DeleteInvoice_Click"/>
@@ -42,15 +42,27 @@
                                Text="{Binding ElementName=cmbBoxItems, Path=SelectedItem.Cost, StringFormat='{}{0:c}'}"/>
                 </StackPanel>
 
-                <Label Content="Invoice Line Items:" Margin="5"/>
-                <DataGrid x:Name="dtgrdInvoiceItems" Margin="5"/>
+                <Label Content="Invoice Line Items:" Margin="5" />
+                <DataGrid x:Name="dtgrdInvoiceItems" Margin="5" AutoGenerateColumns="False" CanUserSortColumns="False" IsReadOnly="True" 
+                          LoadingRow="dtgrdInvoiceItems_LoadingRow" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Item Code" Binding="{Binding Path=Code}" Width="Auto"/>
+                        <DataGridTextColumn Header="Item Cost" Binding="{Binding Path=Cost, StringFormat='{}{0:c}'}"  Width="Auto"/>
+                        <DataGridTextColumn Header="Item Description" Binding="{Binding Path=Description}" Width="*" MaxWidth="300" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Button Content="Delete Selected Line Item" Margin="5" HorizontalAlignment="Center" Click="DeleteLineItem_Click"/>
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Invoice Total:" Margin="5"/>
                     <Label x:Name="lblInvoiceTotal" Content="$0.00" Margin="5"/>
                 </StackPanel>
 
-                <Button Content="Save Changes" Margin="5" Click="SaveChanges_Click"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Save Changes" Margin="5" Width="100" Click="SaveChanges_Click"/>
+                    <Button Content="Cancel" Margin="5" Width="100" Click="CancelChanges_Click"/>
+                </StackPanel>
 
             </StackPanel>
         </GroupBox>
