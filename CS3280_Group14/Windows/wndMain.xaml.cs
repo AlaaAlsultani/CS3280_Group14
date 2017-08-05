@@ -61,14 +61,14 @@ namespace CS3280_Group14
                 searchWindow = new wndSearch();
                 editWindow = new wndEdit();
 
-                //Initialize query object
+                //Initialize Main Window objects and attributes
                 queries = new clsDBQueries();
                 currentInvoice = new clsInvoice();
                 selectedItems = new List<clsItem>();
                 currentTotal = 0;
                 currentInvoice = null;
 
-                //Bind ComboBox to Items in database
+                //Bind ComboBox to Items in database and datagrid to selectedItems
                 cmbBoxItems.ItemsSource = queries.GetItems();
                 dtgrdInvoiceItems.ItemsSource = selectedItems;
             }
@@ -96,6 +96,7 @@ namespace CS3280_Group14
                 //currentInvoice = queries.GetInvoiceByNumber(searchWindow.Invoice);
 
                 //Update UI
+                ResetInvoiceData();
 
             }
             catch (Exception ex)
@@ -194,7 +195,7 @@ namespace CS3280_Group14
                 else
                 {
                     //Delete Invoice
-                    //queries.DeleteInvoice(currentInvoice.InvoiceNumber);
+                    queries.DeleteInvoice(currentInvoice.InvoiceNumber);
                     //Reset UI
                     currentInvoice = null;
                     ResetInvoiceData();
@@ -229,7 +230,6 @@ namespace CS3280_Group14
                     //Update the total cost
                     currentTotal += selected.Cost;
                     lblInvoiceTotal.Content = $"{currentTotal:C}";
-                    //dtgrdInvoiceItems.ItemsSource = selectedItems;
                 }
             }
             catch (Exception ex)
@@ -251,11 +251,17 @@ namespace CS3280_Group14
                 //Check if an item is selected
                 if (dtgrdInvoiceItems.SelectedItem != null)
                 {
-                    //Delete Line Item
-                    selectedItems.Remove((clsItem)dtgrdInvoiceItems.SelectedItem);
-                    //dtgrdInvoiceItems.Items.Remove(dtgrdInvoiceItems.SelectedItem);
-                    dtgrdInvoiceItems.Items.Refresh();
+                    //Grab currently selected item
+                    clsItem selected = (clsItem)dtgrdInvoiceItems.SelectedItem;
 
+                    //Delete Line Item
+                    selectedItems.Remove(selected);
+                    dtgrdInvoiceItems.Items.Refresh();
+                    dtgrdInvoiceItems.SelectedItem = null;
+
+                    //Update the total cost
+                    currentTotal -= selected.Cost;
+                    lblInvoiceTotal.Content = $"{currentTotal:C}";
                 }
             }
             catch (Exception ex)
@@ -284,21 +290,19 @@ namespace CS3280_Group14
                     //If adding a new invoice
                     if (currentInvoice == null)
                     {
-                        //Recover Invoice ID
-                        string invoiceNum = "New";
-                        //queries.AddInvoice();
-                        //invoiceNum = queries.GetNewestInvoice();
-                        currentInvoice = new clsInvoice(invoiceNum, dpInvoiceDate.SelectedDate.Value.Date, selectedItems, currentTotal);
+                        //Add invoice to database and get New Invoice Number
+                        currentInvoice = new clsInvoice("New", dpInvoiceDate.SelectedDate.Value.Date, selectedItems, currentTotal);
+                        currentInvoice.InvoiceNumber = queries.AddInvoice(currentInvoice);
+                        
+                        //Update UI                       
                         lblInvoiceNum.Content = currentInvoice.InvoiceNumber;
+                        btnDeleteInvoice.IsEnabled = true;
+                        btnEditInvoice.IsEnabled = true;
                     }
-                    //If updating an invoice
+                    //If updating an existing invoice
                     else
                     {
-                        //queries.UpdateInvoice(currentInvoice.InvoiceNumber);
-                        //???Delete Line Items????
-                        //currentInvoice = queries.GetInvoiceByNumber(currentInvoice.InvoiceNumber);
-
-                        //Temp Test Code
+                        //Update currentInvoice Information
                         currentInvoice.InvoiceTotal = currentTotal;
                         currentInvoice.InvoiceDate = dpInvoiceDate.SelectedDate.Value.Date;
                         currentInvoice.Items.Clear();
@@ -306,6 +310,9 @@ namespace CS3280_Group14
                         {
                             currentInvoice.Items.Add(item);
                         }
+
+                        //Update Invoice in database
+                        queries.UpdateInvoice(currentInvoice);
                     }
 
                     //disable UI
@@ -358,6 +365,8 @@ namespace CS3280_Group14
                     dpInvoiceDate.SelectedDate = null;
                     selectedItems.Clear();
                     currentTotal = 0;
+                    btnDeleteInvoice.IsEnabled = false;
+                    btnEditInvoice.IsEnabled = false;
                 }
                 //Logic for reseting to current invoice
                 else
@@ -366,6 +375,8 @@ namespace CS3280_Group14
                     dpInvoiceDate.SelectedDate = currentInvoice.InvoiceDate;
                     selectedItems.Clear();
                     currentTotal = currentInvoice.InvoiceTotal;
+                    btnDeleteInvoice.IsEnabled = true;
+                    btnEditInvoice.IsEnabled = true;
 
                     foreach (var item in currentInvoice.Items)
                     {
@@ -383,6 +394,57 @@ namespace CS3280_Group14
             {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Enables or disables the add item button on combo box change
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbBoxItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (cmbBoxItems.SelectedItem != null)
+                {
+                    btnAddItem.IsEnabled = true;
+                }
+                else
+                {
+                    btnAddItem.IsEnabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Enables or disables the delete item button on datagrid selection change
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dtgrdInvoiceItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (dtgrdInvoiceItems.SelectedItem != null)
+                {
+                    btnDeleteItem.IsEnabled = true;
+                }
+                else
+                {
+                    btnDeleteItem.IsEnabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -414,5 +476,7 @@ namespace CS3280_Group14
             }
         }
         #endregion
+
+        
     }
 }

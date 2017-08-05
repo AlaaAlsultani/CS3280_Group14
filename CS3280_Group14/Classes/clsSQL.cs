@@ -24,7 +24,7 @@ namespace CS3280_Group14
             try
             {
                 string sSQL = "INSERT INTO Invoices(InvoiceDate, TotalCharge) " +
-                              "VALUES(" + invoiceDate + ", " + invoiceTotal + ");";
+                              "VALUES( CDate('" + invoiceDate + "'), " + invoiceTotal + ");";
                 return sSQL;
 
             }
@@ -47,7 +47,7 @@ namespace CS3280_Group14
             try
             {
                 string sSQL = "UPDATE Invoices " +
-                              "SET InvoiceDate = " + invoiceDate + ", TotalCharge = " + invoiceTotal + " " +
+                              "SET InvoiceDate = CDate('" + invoiceDate + "'), TotalCharge = " + invoiceTotal + " " +
                               "WHERE InvoiceNum = " + invoiceNum + ";";
                 return sSQL;
             }
@@ -59,7 +59,7 @@ namespace CS3280_Group14
         }
 
         /// <summary>
-        /// Update a Line Item with a new item code
+        /// Update a Line Item with a new item code **NOT USED CURRENTLY
         /// </summary>
         /// <param name="invoiceNum">Invoice number for selected invoice</param>
         /// <param name="lineItemNum">Line Item to update</param>
@@ -122,7 +122,7 @@ namespace CS3280_Group14
         }
 
         /// <summary>
-        /// Delete an existing Line Item from the database
+        /// Delete an existing Line Item from the database **NOT USED CURRENTLY
         /// </summary>
         /// <param name="invoiceNum">Selected Invoice Number</param>
         /// <param name="lineItemNum">Line Item number for item to delete</param>
@@ -162,9 +162,20 @@ namespace CS3280_Group14
         }
 
         /// <summary>
+        /// Queries Invoices for the newest invoice
+        /// </summary>
+        /// <returns>Returns Invoice Number for the newest invoice</returns>
+        public string GetNewestInvoice()
+        {
+            string sSQL = "SELECT Max(InvoiceNum) " +
+                          "FROM Invoices;";
+            return sSQL;
+        }
+
+        /// <summary>
         /// SQL statement to get all Items in the database 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>All Items in database ordered by Item Description</returns>
         public string SelectAllItems()
         {
             try

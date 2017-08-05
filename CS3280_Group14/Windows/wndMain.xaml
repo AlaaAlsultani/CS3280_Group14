@@ -13,9 +13,9 @@
         </Menu>
 
         <StackPanel x:Name="btnPanel" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Create New Invoice" Margin="10" Click="NewInvoice_Click"/>
-            <Button Content="Edit Current Invoice" Margin="10" Click="EditInvoice_Click"/>
-            <Button Content="Delete Current Invoice" Margin="10" Click="DeleteInvoice_Click"/>
+            <Button x:Name="btnNewInvoice" Content="Create New Invoice" Margin="10" Click="NewInvoice_Click"/>
+            <Button x:Name="btnEditInvoice" Content="Edit Current Invoice" Margin="10" Click="EditInvoice_Click" IsEnabled="False"/>
+            <Button x:Name="btnDeleteInvoice" Content="Delete Current Invoice" Margin="10" Click="DeleteInvoice_Click" IsEnabled="False"/>
         </StackPanel>
 
         <GroupBox x:Name="grpboxInvoice" Header="Current Invoice" Margin="10" IsEnabled="False">
@@ -32,8 +32,8 @@
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Add Item to Invoice:" Margin="5" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cmbBoxItems" Margin="5"/>
-                    <Button Content="Add Selected Item" Margin="5" Click="AddItem_Click"/>
+                    <ComboBox x:Name="cmbBoxItems" Margin="5" SelectionChanged="cmbBoxItems_SelectionChanged"/>
+                    <Button x:Name="btnAddItem" Content="Add Selected Item" Margin="5" Click="AddItem_Click" IsEnabled="False"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
@@ -44,7 +44,7 @@
 
                 <Label Content="Invoice Line Items:" Margin="5" />
                 <DataGrid x:Name="dtgrdInvoiceItems" Margin="5" AutoGenerateColumns="False" CanUserSortColumns="False" IsReadOnly="True" 
-                          LoadingRow="dtgrdInvoiceItems_LoadingRow" >
+                          LoadingRow="dtgrdInvoiceItems_LoadingRow" SelectionChanged="dtgrdInvoiceItems_SelectionChanged" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Item Code" Binding="{Binding Path=Code}" Width="Auto"/>
                         <DataGridTextColumn Header="Item Cost" Binding="{Binding Path=Cost, StringFormat='{}{0:c}'}"  Width="Auto"/>
@@ -52,7 +52,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Button Content="Delete Selected Line Item" Margin="5" HorizontalAlignment="Center" Click="DeleteLineItem_Click"/>
+                <Button x:Name="btnDeleteItem" Content="Delete Selected Line Item" Margin="5" HorizontalAlignment="Center" Click="DeleteLineItem_Click" IsEnabled="False"/>
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Invoice Total:" Margin="5"/>

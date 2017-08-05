@@ -48,6 +48,7 @@ namespace CS3280_Group14
             }
         }
 
+        #region Main Page Queries
         /// <summary>
         /// Get all Items from the database
         /// </summary>
@@ -84,6 +85,116 @@ namespace CS3280_Group14
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// Add a new invoice to the database
+        /// </summary>
+        /// <param name="newInvoice">Invoice Object to add</param>
+        /// <returns>New Invoice's Number</returns>
+        public string AddInvoice(clsInvoice newInvoice)
+        {
+            try
+            {
+                string sSQL = sql.AddInvoice(newInvoice.InvoiceDate, newInvoice.InvoiceTotal);
+
+                //Insert new invoice into Invoices table
+                int iNumReturned = db.ExecuteNonQuery(sSQL);
+
+                //Get new invoice number
+                string newInvoiceNumber = GetNewestInvoiceNumber();
+
+                //Insert Each Line Item
+                for(int i=0; i < newInvoice.Items.Count; ++i)
+                {
+                    sSQL = sql.AddLineItem(newInvoiceNumber, $"{i + 1}", newInvoice.Items[i].Code);
+                    iNumReturned = db.ExecuteNonQuery(sSQL);
+                }
+
+                return newInvoiceNumber;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get the newest invoice number in the database
+        /// </summary>
+        /// <returns>Returns a string of the newest invoice's number</returns>
+        public string GetNewestInvoiceNumber()
+        {
+            try
+            {
+                string sSQL = sql.GetNewestInvoice();
+                return db.ExecuteScalarSQL(sSQL);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Updates an invoice currently in the database
+        /// </summary>
+        /// <param name="invoice">Invoice object with all changes</param>
+        public void UpdateInvoice(clsInvoice invoice)
+        {
+            try
+            {
+                string sSQL = sql.UpdateInvoice(invoice.InvoiceNumber, invoice.InvoiceDate, invoice.InvoiceTotal);
+
+                //Update Invoice Table
+                int iNumReturned = db.ExecuteNonQuery(sSQL);
+
+                //Delete All Current Line Items to replace them later
+                sSQL = sql.DeleteInvoiceLineItems(invoice.InvoiceNumber);
+                iNumReturned = db.ExecuteNonQuery(sSQL);
+
+                //Insert Each Line Item as new
+                for (int i = 0; i < invoice.Items.Count; ++i)
+                {
+                    sSQL = sql.AddLineItem(invoice.InvoiceNumber, $"{i + 1}", invoice.Items[i].Code);
+                    iNumReturned = db.ExecuteNonQuery(sSQL);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Deletes an existing invoice from the database
+        /// </summary>
+        /// <param name="invoiceNumber">Invoice number of invoice to be deleted</param>
+        public void DeleteInvoice(string invoiceNumber)
+        {
+            try
+            {
+                string sSQL = sql.DeleteInvoiceLineItems(invoiceNumber);
+
+                //Delete Invoice Line Items
+                int iNumReturned = db.ExecuteNonQuery(sSQL);
+
+                //Delete Invoice
+                sSQL = sql.DeleteInvoice(invoiceNumber);
+                iNumReturned = db.ExecuteNonQuery(sSQL);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Execute query to get invoice numbers and put them into a list
