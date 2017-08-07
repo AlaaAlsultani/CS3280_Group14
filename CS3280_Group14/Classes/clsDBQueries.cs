@@ -327,5 +327,28 @@ namespace CS3280_Group14
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// Get information about an item
+        /// </summary>
+        /// <param name="sItemCode">Item code of current item</param>
+        /// <returns>data set containing invoices</returns>
+        public DataSet GetItemInfo(string sItemCode)
+        {
+            try
+            {
+                int iNumReturned = 0;
+
+                //create data set and execute sql statement
+                DataSet ds = db.ExecuteSQLStatement(sql.GetItemInformation(sItemCode), ref iNumReturned);
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
     }
 }

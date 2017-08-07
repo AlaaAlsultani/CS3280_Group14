@@ -289,11 +289,11 @@ namespace CS3280_Group14
         /// </summary>
         /// <param name="sItemCode">Item code</param>
         /// <returns>sql query string</returns>
-        public string GetInvoicesContainingItem(string sItemCode)
+        public string GetInvoicesContainingItem(string sItemDesc)
         {
             try
             {
-                return "SELECT DISTINCT InvoiceNum FROM LineItems WHERE ItemCode = '" + sItemCode + "';";
+                return "SELECT LineItems.InvoiceNum FROM ItemDesc INNER JOIN LineItems ON ItemDesc.ItemCode = LineItems.ItemCode WHERE ItemDesc.ItemDesc = '" + sItemDesc + "'; ";
             }
             catch (Exception ex)
             {

@@ -110,8 +110,20 @@ namespace CS3280_Group14
         {
             try
             {
-                //TODO: Populate Item information box
-                //TODO: Populate Datagrid with Invoices
+                if (cmbItems.SelectedValue != null)
+                {
+                    DataSet ds = new DataSet();
+
+                    ds = query.GetItemInfo(cmbItems.SelectedValue.ToString());
+
+                    lblItemCode.Content = ds.Tables[0].Rows[0][0].ToString();
+                    lblItemDesc.Content = ds.Tables[0].Rows[0][1].ToString();
+                    lblItemCost.Content = $"{ds.Tables[0].Rows[0][2].ToString():C}";
+
+                    ds = query.GetInvoicesContainingItem(cmbItems.SelectedValue.ToString());
+
+                    dgInvoicesWithItem.ItemsSource = ds.Tables[0].AsDataView();
+                }
             }
             catch (System.Exception ex)
             {
