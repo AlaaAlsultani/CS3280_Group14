@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -128,8 +129,9 @@ namespace CS3280_Group14
         {
             try
             {
-                //TODO: Populate Invoice Combobox with invoiceNums between date range
-                //TODO: Refresh Combobox list source
+                //Populate Invoice Combobox with invoiceNums between date range
+                lstInvoiceSource = query.GetInvoiceNumbersByDateRange(dpBeginDate.SelectedDate.Value.Date.ToString(), dpEndDate.SelectedDate.Value.Date.ToString());
+                cmbInvoiceNums.ItemsSource = lstInvoiceSource;
             }
             catch (System.Exception ex)
             {
@@ -147,8 +149,23 @@ namespace CS3280_Group14
         {
             try
             {
-                //TODO:Populate Invoice Information box
-                //TODO: Populate data grid displaying invoice contents
+                if (cmbInvoiceNums.SelectedValue != null) //prevents crash when changing item source
+                {
+                    //Populate Invoice Information box
+                    DataSet ds = new DataSet();
+
+                    ds = query.GetInvoiceInfo(cmbInvoiceNums.SelectedValue.ToString());
+
+                    lblInvoiceNum.Content = ds.Tables[0].Rows[0][0].ToString();
+                    lblInvoiceDate.Content = ds.Tables[0].Rows[0][1].ToString();
+                    lblInvoiceCost.Content = $"{ds.Tables[0].Rows[0][2]:C}";
+
+                    //Populate data grid displaying invoice contents
+
+                    ds = query.GetInvoiceContents(cmbInvoiceNums.SelectedValue.ToString());
+
+                    dgInvoiceContents.ItemsSource = ds.Tables[0].AsDataView();
+                }
             }
             catch (System.Exception ex)
             {

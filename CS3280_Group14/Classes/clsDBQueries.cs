@@ -281,5 +281,51 @@ namespace CS3280_Group14
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// Get information about a invoice
+        /// </summary>
+        /// <param name="sItemCode">Item code of current item</param>
+        /// <returns>data set containing invoices</returns>
+        public DataSet GetInvoiceInfo(string sInvoiceNum)
+        {
+            try
+            {
+                int iNumReturned = 0;
+
+                //create data set and execute sql statement
+                DataSet ds = db.ExecuteSQLStatement(sql.GetInvoice(sInvoiceNum), ref iNumReturned);
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get item in invoice
+        /// </summary>
+        /// <param name="sInvoiceNum">selected invoice number</param>
+        /// <returns>data set containing invoice's items</returns>
+        public DataSet GetInvoiceContents(string sInvoiceNum)
+        {
+            try
+            {
+                int iNumReturned = 0;
+
+                //create data set and execute sql statement
+                DataSet ds = db.ExecuteSQLStatement(sql.GetInvoiceContents(sInvoiceNum), ref iNumReturned);
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
     }
 }

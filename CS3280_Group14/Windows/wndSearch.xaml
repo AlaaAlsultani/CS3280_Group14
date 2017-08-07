@@ -18,7 +18,7 @@
                             <Label Content="Invoice Number: " Margin="0,0,299,0"/>
                             <Label Content=" " x:Name="lblInvoiceNum" Margin="121,-15,174,0" Height="14"/>
                             <Label Content="Invoice Date: " Margin="0,0,299,0" />
-                            <Label Content=" " Name="lblInvoiceDate" Margin="121,-15,174,0" />
+                            <Label Content=" " Name="lblInvoiceDate" Margin="121,-15,70,0" />
                             <Label Content="Invoice Cost: " Margin="0,0,299,0" />
                             <Label Content=" " Name="lblInvoiceCost" Margin="121,-15,174,0" />
                         </StackPanel>
