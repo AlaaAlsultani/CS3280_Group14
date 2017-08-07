@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:CS3280_Group14"
         mc:Ignorable="d"
         Closing="Window_Closing"
-        Title="Search" Height="588.235" Width="527.731">
+        Title="Search" Height="588.235" Width="527.731" WindowStartupLocation="CenterOwner">
     <Grid Margin="0,0,0,-1">
         <TabControl HorizontalAlignment="Left" Height="488" Margin="10,29,0,0" VerticalAlignment="Top" Width="500">
-            <TabItem Header="Invoice" Margin="0,0,-110,0">
+            <TabItem Header="Invoice" Margin="0,0,-110,0" Foreground="#FF8AA2E0">
                 <Grid Background="#FFE5E5E5" Height="438" Width="493">
                     <Label Content="Select Invoice" Margin="98,113,315,305" />
                     <ComboBox HorizontalAlignment="Left" Margin="207,113,0,0" Name="cmbInvoiceNums" VerticalAlignment="Top" Width="156" SelectionChanged="ComboBox_SelectionChanged"/>
@@ -33,7 +33,7 @@
                     <Button Content="Submit Date Range" Name="cmdSubmitRange" HorizontalAlignment="Left" Margin="175,75,0,0" VerticalAlignment="Top" Width="119" Click="cmdSubmitRange_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Item" Margin="116,0,-235,0">
+            <TabItem Header="Item" Margin="116,0,-235,0" Foreground="#FF8AA2E0">
                 <Grid Background="#FFE5E5E5" Height="439" Width="493">
                     <Label Content="Select Item: " Margin="218,10,183,409"/>
                     <ComboBox HorizontalAlignment="Left" Name="cmbItems"  Margin="327,10,0,0" VerticalAlignment="Top" Width="156" SelectionChanged="cmbItems_SelectionChanged"/>

@@ -116,9 +116,9 @@ namespace CS3280_Group14
 
                     ds = query.GetItemInfo(cmbItems.SelectedValue.ToString());
 
-                    lblItemCode.Content = ds.Tables[0].Rows[0][0].ToString();
-                    lblItemDesc.Content = ds.Tables[0].Rows[0][1].ToString();
-                    lblItemCost.Content = $"{ds.Tables[0].Rows[0][2].ToString():C}";
+                    lblItemCode.Content = ds.Tables[0].Rows[0]["ItemCode"].ToString();
+                    lblItemDesc.Content = ds.Tables[0].Rows[0]["ItemDesc"].ToString();
+                    lblItemCost.Content = $"{ds.Tables[0].Rows[0]["Cost"]:C}";
 
                     ds = query.GetInvoicesContainingItem(cmbItems.SelectedValue.ToString());
 
@@ -168,9 +168,9 @@ namespace CS3280_Group14
 
                     ds = query.GetInvoiceInfo(cmbInvoiceNums.SelectedValue.ToString());
 
-                    lblInvoiceNum.Content = ds.Tables[0].Rows[0][0].ToString();
-                    lblInvoiceDate.Content = ds.Tables[0].Rows[0][1].ToString();
-                    lblInvoiceCost.Content = $"{ds.Tables[0].Rows[0][2]:C}";
+                    lblInvoiceNum.Content = ds.Tables[0].Rows[0]["InvoiceNum"].ToString();
+                    lblInvoiceDate.Content = ds.Tables[0].Rows[0]["InvoiceDate"].ToString();
+                    lblInvoiceCost.Content = $"{ds.Tables[0].Rows[0]["TotalCharge"]:C}";
 
                     //Populate data grid displaying invoice contents
 
