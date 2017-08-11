@@ -24,7 +24,14 @@
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="Contents" HorizontalAlignment="Left" Height="202" Margin="33,226,0,0" VerticalAlignment="Top" Width="427">
-                        <DataGrid HorizontalAlignment="Left" Name="dgInvoiceContents" Height="155" Margin="10,10,0,0" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto" Width="394"/>
+                        <DataGrid HorizontalAlignment="Left" Name="dgInvoiceContents" AutoGenerateColumns="False" CanUserSortColumns="False" 
+                                  IsReadOnly="True" Height="155" Margin="10,10,0,0" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto" Width="394">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Item Code" Binding="{Binding Path=Code}" Width="Auto"/>
+                                <DataGridTextColumn Header="Item Cost" Binding="{Binding Path=Cost, StringFormat='{}{0:c}'}"  Width="Auto"/>
+                                <DataGridTextColumn Header="Item Description" Binding="{Binding Path=Description}" Width="*" MaxWidth="300" />
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </GroupBox>
                     <Label Content="Begin Date" Margin="85,18,342,404" />
                     <DatePicker HorizontalAlignment="Left" Margin="85,39,0,0" VerticalAlignment="Top" SelectedDate="4/25/2004" Name="dpBeginDate" />
@@ -49,7 +56,12 @@
                     </GroupBox>
 
                     <Label Content="Invoices Containing Item" Margin="149,150,158,267" FontSize="16" />
-                    <DataGrid HorizontalAlignment="Left" Name="dgInvoicesWithItem" Height="136" VerticalScrollBarVisibility="Auto" Margin="149,184,0,0" VerticalAlignment="Top" Width="186"/>
+                    <DataGrid HorizontalAlignment="Left" Name="dgInvoicesWithItem" AutoGenerateColumns="False" CanUserSortColumns="False" 
+                                  IsReadOnly="True" Height="136" VerticalScrollBarVisibility="Auto" Margin="149,184,0,0" VerticalAlignment="Top" Width="186">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Invoice Number" Binding="{Binding Path=InvoiceNum}" Width="Auto"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
                 </Grid>
             </TabItem>
