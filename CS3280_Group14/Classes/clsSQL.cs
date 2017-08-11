@@ -240,7 +240,7 @@ namespace CS3280_Group14
         {
             try
             {
-                return "SELECT ItemDesc.ItemDesc, ItemDesc.Cost FROM ItemDesc INNER JOIN LineItems ON ItemDesc.ItemCode = LineItems.ItemCode WHERE LineItems.InvoiceNum = " + sInvoiceNum +"; ";
+                return "SELECT ItemDesc.ItemCode, ItemDesc.ItemDesc, ItemDesc.Cost FROM ItemDesc INNER JOIN LineItems ON ItemDesc.ItemCode = LineItems.ItemCode WHERE LineItems.InvoiceNum = " + sInvoiceNum +"; ";
             }
             catch (Exception ex)
             {

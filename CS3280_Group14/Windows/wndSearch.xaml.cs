@@ -166,6 +166,8 @@ namespace CS3280_Group14
                     //Populate Invoice Information box
                     DataSet ds = new DataSet();
 
+                    query.GetInvoiceByNum(cmbInvoiceNums.SelectedValue.ToString());
+
                     ds = query.GetInvoiceInfo(cmbInvoiceNums.SelectedValue.ToString());
 
                     lblInvoiceNum.Content = ds.Tables[0].Rows[0]["InvoiceNum"].ToString();
@@ -174,9 +176,11 @@ namespace CS3280_Group14
 
                     //Populate data grid displaying invoice contents
 
-                    ds = query.GetInvoiceContents(cmbInvoiceNums.SelectedValue.ToString());
+                    List<clsItem> items = new List<clsItem>();
 
-                    dgInvoiceContents.ItemsSource = ds.Tables[0].AsDataView();
+                    items = query.GetInvoiceContents(cmbInvoiceNums.SelectedValue.ToString());
+
+                    dgInvoiceContents.ItemsSource = items;
                 }
             }
             catch (System.Exception ex)

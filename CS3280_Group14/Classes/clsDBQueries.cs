@@ -24,7 +24,7 @@ namespace CS3280_Group14
         /// <summary>
         /// Invoice Object to hold currently selected invoice
         /// </summary>
-        private clsInvoice currentInvoice;
+        private static clsInvoice currentInvoice;
         /// <summary>
         /// Object for SQL statements
         /// </summary>
@@ -310,7 +310,7 @@ namespace CS3280_Group14
         /// </summary>
         /// <param name="sInvoiceNum">selected invoice number</param>
         /// <returns>data set containing invoice's items</returns>
-        public DataSet GetInvoiceContents(string sInvoiceNum)
+        public List<clsItem> GetInvoiceContents(string sInvoiceNum)
         {
             try
             {
@@ -319,7 +319,20 @@ namespace CS3280_Group14
                 //create data set and execute sql statement
                 DataSet ds = db.ExecuteSQLStatement(sql.GetInvoiceContents(sInvoiceNum), ref iNumReturned);
 
-                return ds;
+                List<clsItem> items = new List<clsItem>();
+
+                clsItem cItem;
+
+                for (int i = 0; i < iNumReturned; i++)
+                {
+                    cItem = new clsItem();
+                    cItem.Code = ds.Tables[0].Rows[i]["ItemCode"].ToString();
+                    cItem.Description = ds.Tables[0].Rows[i]["ItemDesc"].ToString();
+                    cItem.Cost = (decimal)ds.Tables[0].Rows[i]["Cost"];
+                    items.Add(cItem);
+                }
+
+                return items;
             }
             catch (Exception ex)
             {
@@ -350,5 +363,41 @@ namespace CS3280_Group14
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// retrive invoice and set CurrentInvoice to retrieved invoice
+        /// </summary>
+        /// <param name="sInvoiceNum">Invoice Number</param>
+        public void GetInvoiceByNum(string sInvoiceNum)
+        {
+            try
+            {
+                int iNumReturned = 0;
+
+                DataSet ds = db.ExecuteSQLStatement(sql.GetInvoice(sInvoiceNum), ref iNumReturned);
+
+                clsInvoice invoice = new clsInvoice();
+
+                invoice.InvoiceNumber = ds.Tables[0].Rows[0]["InvoiceNum"].ToString();
+                invoice.InvoiceDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["InvoiceDate"].ToString());
+                invoice.InvoiceTotal = Convert.ToDecimal(ds.Tables[0].Rows[0]["TotalCharge"]);
+                invoice.Items = GetInvoiceContents(sInvoiceNum);
+
+                currentInvoice = invoice;
+                
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Retrieve currently selected invoice to be shared between windows
+        /// </summary>
+        public static clsInvoice CurrentInvoice
+        {get { return currentInvoice; } }
+
     }
 }
