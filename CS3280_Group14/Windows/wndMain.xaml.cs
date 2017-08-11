@@ -21,6 +21,7 @@ namespace CS3280_Group14
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Attributes
         /// <summary>
         /// Search Window
         /// </summary>
@@ -45,7 +46,9 @@ namespace CS3280_Group14
         /// Holds current invoice total
         /// </summary>
         private decimal currentTotal;
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// Main Window Constructor
         /// </summary>
@@ -78,7 +81,11 @@ namespace CS3280_Group14
                     MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+        #endregion
 
+        #region Methods
+
+        #region Button Methods
         /// <summary>
         /// Open Search Window Logic
         /// </summary>
@@ -88,14 +95,20 @@ namespace CS3280_Group14
         {
             try
             {
+                //Reset UI
+                ResetInvoiceData();
+                grpboxInvoice.IsEnabled = false;
+                btnPanel.IsEnabled = true;
+
                 Hide();//Hide this window
                 searchWindow.ShowDialog();//display search window
                 Show();//show this window
 
                 //Get Select Invoice from searchWindow and Populate the data in the current window's form
-                //currentInvoice = queries.GetInvoiceByNumber(searchWindow.Invoice);
+                currentInvoice = clsDBQueries.CurrentInvoice;
 
                 //Update UI
+                lblInvoiceNum.Content = (currentInvoice != null) ? $"{currentInvoice.InvoiceNumber}" : "None Selected";
                 ResetInvoiceData();
 
             }
@@ -115,6 +128,12 @@ namespace CS3280_Group14
         {
             try
             {
+                //Reset UI
+                ResetInvoiceData();
+                grpboxInvoice.IsEnabled = false;
+                btnPanel.IsEnabled = true;
+
+                //Open Window
                 Hide();
                 editWindow.ShowDialog();
                 Show();
@@ -347,6 +366,7 @@ namespace CS3280_Group14
                     MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+        #endregion
 
         #region Helper Methods
         /// <summary>
@@ -387,6 +407,7 @@ namespace CS3280_Group14
 
                 //Resets Invoice Changes and disable UI
                 cmbBoxItems.SelectedIndex = -1;
+                dtgrdInvoiceItems.SelectedIndex = -1;
                 lblInvoiceTotal.Content = $"{currentTotal:C}";
                 dtgrdInvoiceItems.Items.Refresh();
             }
@@ -455,7 +476,15 @@ namespace CS3280_Group14
         /// <param name="e"></param>
         private void dtgrdInvoiceItems_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            try
+            {
+                e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -477,6 +506,6 @@ namespace CS3280_Group14
         }
         #endregion
 
-        
+        #endregion
     }
 }
