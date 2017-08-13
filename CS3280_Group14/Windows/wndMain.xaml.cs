@@ -137,6 +137,17 @@ namespace CS3280_Group14
                 Hide();
                 editWindow.ShowDialog();
                 Show();
+
+                //Repopulate Item Combobox 
+                cmbBoxItems.ItemsSource = queries.GetItems();
+
+                //Update Items on Currently Displayed Invoice
+                if (currentInvoice != null)
+                {
+                    currentInvoice.Items = queries.GetInvoiceContents(currentInvoice.InvoiceNumber);
+                }
+
+                ResetInvoiceData();
             }
             catch (Exception ex)
             {
