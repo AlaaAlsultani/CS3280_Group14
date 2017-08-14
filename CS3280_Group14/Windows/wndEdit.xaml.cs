@@ -58,7 +58,6 @@ namespace CS3280_Group14
                 InitializeComponent();
                 queries = new clsDBQueries();
                 item = new clsItem();
-                editWindow = new wndEdit();
                 listOfItems = queries.GetAllFromItemDesc();
                 isUpdateItem = false;
                 dgListOfItems.ItemsSource = listOfItems;
@@ -123,15 +122,16 @@ namespace CS3280_Group14
             {
                 string enteredDesc = txtbDesc.Text;
                 string enteredCost = txtbCost.Text;
+                MessageBoxResult result;
 
                 if (item.ValidItemDesc(enteredDesc) && item.ValidItemCost(enteredCost))
                 {
-                    MessageBox.Show("Validation is complete you may now save changes.");
+                    result = MessageBox.Show("Validation is complete you may now save changes.");
                     isUpdateItem = true;
                     btnsaveItemChanges.IsEnabled = true;
                 }
                 else
-                    MessageBox.Show("Please only enter letters for the Description(allows apaces) and numbers for the Cost");
+                    result = MessageBox.Show("Please only enter letters for the Description(allows spaces) and numbers for the Cost");
                 Hide();
                 editWindow.ShowDialog();
                 Show();
@@ -156,10 +156,12 @@ namespace CS3280_Group14
             try
             {
                 DataSet ds = new DataSet();
+
+                MessageBoxResult result;
                 ds = queries.GetInvoicesContainingItem(txtbCode.Text);
                 if (ds.IsInitialized)
                 {
-                    MessageBox.Show("Cannot delete this item for it is in an invoice.");
+                    result = MessageBox.Show("Cannot delete this item for it is in an invoice.");
                     Hide();
                     editWindow.ShowDialog();
                     Show();
@@ -175,7 +177,7 @@ namespace CS3280_Group14
             catch (Exception ex)
             {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                                MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
 
         }
@@ -191,14 +193,15 @@ namespace CS3280_Group14
             {
                 string enteredDesc = txtbDesc.Text;
                 string enteredCost = txtbCost.Text;
+                MessageBoxResult result;
 
                 if (item.ValidItemDesc(enteredDesc) && item.ValidItemCost(enteredCost))
                 {
-                    MessageBox.Show("Validation is complete you may now add new item by clicking the Save Changes button.");
+                    result = MessageBox.Show("Validation is complete you may now add new item by clicking the Save Changes button.");
                     btnsaveItemChanges.IsEnabled = true;
                 }
                 else
-                    MessageBox.Show("Please only enter letters for the Description(allows apaces and /) and numbers for the Cost");
+                    result = MessageBox.Show("Please only enter letters for the Description(allows spaces and /) and numbers for the Cost");
                 Hide();
                 editWindow.ShowDialog();
                 Show();

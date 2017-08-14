@@ -31,8 +31,8 @@
             </DataGrid.RenderTransform>
         </DataGrid>
         <TextBox x:Name="txtbCode" HorizontalAlignment="Left" Height="23" Margin="10,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" FontSize="10" IsReadOnly="True" Text="{Binding Path=SelectedItem.Code, ElementName=dgListOfItems}"/>
-        <TextBox x:Name="txtbCost" HorizontalAlignment="Left" Height="22" Margin="235,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="10" RenderTransformOrigin="1.067,0.364" Text="{Binding Path=SelectedItem.Code, ElementName=dgListOfItems}"/>
-        <TextBox x:Name="txtbDesc" HorizontalAlignment="Left" Height="22" Margin="105,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" FontSize="10" Text="{Binding Path=SelectedItem.Code, ElementName=dgListOfItems}"/>
+        <TextBox x:Name="txtbCost" HorizontalAlignment="Left" Height="22" Margin="235,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="10" RenderTransformOrigin="1.067,0.364" Text="{Binding Path=SelectedItem.Cost, ElementName=dgListOfItems}"/>
+        <TextBox x:Name="txtbDesc" HorizontalAlignment="Left" Height="22" Margin="105,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" FontSize="10" Text="{Binding Path=SelectedItem.Description, ElementName=dgListOfItems}"/>
 
         <Label x:Name="lblAllItems" Content="All Items in the Invoice:" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblCodeSelected" Content="Code Selected:" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top"/>
