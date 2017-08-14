@@ -112,7 +112,7 @@ namespace CS3280_Group14
 
         #region Event Methods
         /// <summary>
-        /// 
+        /// Updates this items Description and Cost.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -195,7 +195,7 @@ namespace CS3280_Group14
                     btnsaveItemChanges.IsEnabled = true;
                 }
                 if(!(item.ValidItemDesc(enteredDesc) && item.ValidItemCost(enteredCost)))
-                    MessageBox.Show("Please only enter letters for the Description(allows spaces and /) and numbers for the Cost");
+                    MessageBox.Show("Please only enter letters for the Description(allows spaces) and numbers for the Cost");
             
             }
             catch (Exception ex)

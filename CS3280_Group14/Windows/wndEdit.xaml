@@ -20,7 +20,7 @@
             </Button.RenderTransform>
         </Button>
         <Button x:Name="btnUpdateItem" Content="Update Item" HorizontalAlignment="Left" Margin="226,10,0,0" VerticalAlignment="Top" Width="89" Click="UpdateItem_Click"/>
-        <DataGrid x:Name="dgListOfItems" HorizontalAlignment="Left" Height="320" Margin="23,115,0,0" VerticalAlignment="Top" Width="236" RenderTransformOrigin="0.5,0.5" FontSize="10"  ItemStringFormat="{}{0:C}" BindingGroup="{Binding SelectedItems, ElementName=dgListOfItems}">
+        <DataGrid x:Name="dgListOfItems" HorizontalAlignment="Left" Height="320" Margin="23,115,0,0" VerticalAlignment="Top" Width="236" RenderTransformOrigin="0.5,0.5" FontSize="10" >
             <DataGrid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -31,7 +31,7 @@
             </DataGrid.RenderTransform>
         </DataGrid>
         <TextBox x:Name="txtbCode" HorizontalAlignment="Left" Height="23" Margin="10,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" FontSize="10" IsReadOnly="True" Text="{Binding Path=SelectedItem.Code, ElementName=dgListOfItems}"/>
-        <TextBox x:Name="txtbCost" HorizontalAlignment="Left" Height="22" Margin="235,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="10" RenderTransformOrigin="1.067,0.364" Text="{Binding Path=SelectedItem.Cost, ElementName=dgListOfItems}"/>
+        <TextBox x:Name="txtbCost" HorizontalAlignment="Left" Height="22" Margin="235,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="10" RenderTransformOrigin="1.067,0.364" Text="{Binding Path=SelectedItem.Cost, StringFormat='{}{0:C}', ElementName=dgListOfItems}"/>
         <TextBox x:Name="txtbDesc" HorizontalAlignment="Left" Height="22" Margin="105,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" FontSize="10" Text="{Binding Path=SelectedItem.Description, ElementName=dgListOfItems}"/>
 
         <Label x:Name="lblAllItems" Content="All Items in the Invoice:" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top"/>
