@@ -156,7 +156,9 @@ namespace CS3280_Group14
 
                 
                 ds = queries.GetInvoicesContainingItem(txtbCode.Text);
-                if (ds.IsInitialized)
+                //if (ds.IsInitialized)
+                //Count Seems to work better
+                if(ds.Tables[0].Rows.Count > 0)
                 {
                     MessageBox.Show("Cannot delete this item for it is in an invoice.");
                 }

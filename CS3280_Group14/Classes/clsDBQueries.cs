@@ -491,7 +491,7 @@ namespace CS3280_Group14
                     return sSQL;
                 }
 
-                sSQL = sql.AddNewItem(sCode, cost, desc);
+                sSQL = sql.AddNewItem(sCode, desc, cost);
                 iNumReturned = db.ExecuteNonQuery(sSQL);
                 return sSQL;
             }
@@ -506,7 +506,7 @@ namespace CS3280_Group14
         {
             try
             {
-                string sSQL = sql.UpdateItem(sCode,cost,desc);
+                string sSQL = sql.UpdateItem(sCode,desc,cost);
 
                 //Update ItemDesc Table
                 int iNumReturned = db.ExecuteNonQuery(sSQL);

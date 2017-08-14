@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:CS3280_Group14"
         mc:Ignorable="d"
         Closing="Window_Closing"
-        Title="EditWindow" Height="480" Width="350" SizeToContent="WidthAndHeight">
-    <Grid Margin="0,0,0,-21">
+        Title="EditWindow"  SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+    <Grid >
         <Button x:Name="btnAddNewItem" Content="Add New Item" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="89" Click="AddNewItem_Click"/>
         <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="118,10,0,0" VerticalAlignment="Top" Width="89" Click="DeleteItem_Click" RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>
@@ -20,15 +20,12 @@
             </Button.RenderTransform>
         </Button>
         <Button x:Name="btnUpdateItem" Content="Update Item" HorizontalAlignment="Left" Margin="226,10,0,0" VerticalAlignment="Top" Width="89" Click="UpdateItem_Click"/>
-        <DataGrid x:Name="dgListOfItems" HorizontalAlignment="Left" Height="320" Margin="23,115,0,0" VerticalAlignment="Top" Width="236" RenderTransformOrigin="0.5,0.5" FontSize="10" >
-            <DataGrid.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="0.368"/>
-                    <RotateTransform Angle="-0.196"/>
-                    <TranslateTransform X="-0.488" Y="0.002"/>
-                </TransformGroup>
-            </DataGrid.RenderTransform>
+        <DataGrid x:Name="dgListOfItems" HorizontalAlignment="Left" Margin="23,115,0,0" VerticalAlignment="Top" FontSize="10" AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Item Code" Binding="{Binding Path=Code}" Width="Auto"/>
+                <DataGridTextColumn Header="Item Cost" Binding="{Binding Path=Cost, StringFormat='{}{0:c}'}"  Width="Auto"/>
+                <DataGridTextColumn Header="Item Description" Binding="{Binding Path=Description}" Width="*" MaxWidth="150" />
+            </DataGrid.Columns>
         </DataGrid>
         <TextBox x:Name="txtbCode" HorizontalAlignment="Left" Height="23" Margin="10,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" FontSize="10" IsReadOnly="True" Text="{Binding Path=SelectedItem.Code, ElementName=dgListOfItems}"/>
         <TextBox x:Name="txtbCost" HorizontalAlignment="Left" Height="22" Margin="235,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="10" RenderTransformOrigin="1.067,0.364" Text="{Binding Path=SelectedItem.Cost, StringFormat='{}{0:C}', ElementName=dgListOfItems}"/>
