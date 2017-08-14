@@ -415,12 +415,15 @@ namespace CS3280_Group14
             try
             {
                 string itemCode = sql.SelectItemCode(sAutoGenItemCode);
-                int exists = db.ExecuteNonQuery(itemCode);
-                if (exists == 0)
+                int iNumRef = 0;
+                DataSet ds = new DataSet();
+                ds = db.ExecuteSQLStatement(itemCode, ref iNumRef);
+                if (ds.IsInitialized)
                 {
-                    return false;
+                    return true;
                 }
-                return true;
+                else
+                    return false;
             }
             catch (Exception ex)
             {
@@ -473,7 +476,7 @@ namespace CS3280_Group14
         /// <param name="cost">cost</param>
         /// <param name="desc">description</param>
         /// <returns></returns>
-        public string AddNewItem(string sCode,string cost, string desc)
+        public void AddNewItem(string sCode,string cost, string desc)
         {
             try
             {
@@ -488,12 +491,12 @@ namespace CS3280_Group14
                     //Insert new item into ItemDesc table
                     iNumReturned = db.ExecuteNonQuery(sSQL);
 
-                    return sSQL;
                 }
-
-                sSQL = sql.AddNewItem(sCode, desc, cost);
-                iNumReturned = db.ExecuteNonQuery(sSQL);
-                return sSQL;
+                if (!(DoesItemCodeExist(sCode)))
+                {
+                    sSQL = sql.AddNewItem(sCode, desc, cost);
+                    iNumReturned = db.ExecuteNonQuery(sSQL);
+                }
             }
             catch (Exception ex)
             {
@@ -502,6 +505,12 @@ namespace CS3280_Group14
             }
         }
 
+        /// <summary> the
+        /// Updates the item on the ItemDesc table
+        /// </summary>
+        /// <param name="sCode"></param>
+        /// <param name="cost"></param>
+        /// <param name="desc"></param>
         public void UpdateItem(string sCode, string cost, string desc)
         {
             try
@@ -519,6 +528,10 @@ namespace CS3280_Group14
             }
         }
 
+        /// <summary>
+        /// Deletes an item from the table
+        /// </summary>
+        /// <param name="sCode"></param>
         public void DeleteItem(string sCode)
         {
             try

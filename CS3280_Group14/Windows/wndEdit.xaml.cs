@@ -223,13 +223,15 @@ namespace CS3280_Group14
                     dgListOfItems.ItemsSource = listOfItems;
                     btnsaveItemChanges.IsEnabled = false;
                 }
-                if(!(isUpdateItem))
+                if (!(isUpdateItem))
                 {
                     queries.AddNewItem(txtbCode.Text, txtbCost.Text, txtbDesc.Text);
                     listOfItems = queries.GetAllFromItemDesc();
                     dgListOfItems.ItemsSource = listOfItems;
                     btnsaveItemChanges.IsEnabled = false;
                 }
+                else
+                    btnsaveItemChanges.IsEnabled = false;
 
             }
             catch (Exception ex)
