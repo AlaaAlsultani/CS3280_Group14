@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -46,6 +47,7 @@ namespace CS3280_Group14
         /// To access my window view
         /// </summary>
         private wndEdit editWindow;
+
         #endregion
 
         #region Constructor
@@ -153,13 +155,22 @@ namespace CS3280_Group14
             //Give the user a warning message that tells them which invoices that item is used on.
             try
             {
-                //if ()
-                //{
+                DataSet ds = new DataSet();
+                ds = queries.GetInvoicesContainingItem(txtbCode.Text);
+                if (ds.IsInitialized)
+                {
+                    MessageBox.Show("Cannot delete this item for it is in an invoice.");
+                    Hide();
+                    editWindow.ShowDialog();
+                    Show();
+                }
+                else
+                {
+                    queries.DeleteItem(txtbCode.Text);
+                    listOfItems = queries.GetAllFromItemDesc();
+                    dgListOfItems.ItemsSource = listOfItems;
+                }
 
-                //}
-                queries.DeleteItem(txtbCode.Text);
-                listOfItems = queries.GetAllFromItemDesc();
-                dgListOfItems.ItemsSource = listOfItems;
             }
             catch (Exception ex)
             {
