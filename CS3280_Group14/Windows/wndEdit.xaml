@@ -20,7 +20,7 @@
             </Button.RenderTransform>
         </Button>
         <Button x:Name="btnUpdateItem" Content="Update Item" HorizontalAlignment="Left" Margin="226,10,0,0" VerticalAlignment="Top" Width="89" Click="UpdateItem_Click"/>
-        <DataGrid x:Name="dgListOfItems" HorizontalAlignment="Left" Height="320" Margin="23,115,0,0" VerticalAlignment="Top" Width="236" RenderTransformOrigin="0.5,0.5" FontSize="10" SelectionChanged="ItemSelected">
+        <DataGrid x:Name="dgListOfItems" HorizontalAlignment="Left" Height="320" Margin="23,115,0,0" VerticalAlignment="Top" Width="236" RenderTransformOrigin="0.5,0.5" FontSize="10" SelectionChanged="ItemSelected" ItemStringFormat="{}{0:C}">
             <DataGrid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -30,9 +30,9 @@
                 </TransformGroup>
             </DataGrid.RenderTransform>
         </DataGrid>
-        <TextBox x:Name="txtbCode" HorizontalAlignment="Left" Height="23" Margin="10,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" FontSize="10" IsReadOnly="True"/>
-        <TextBox x:Name="txtbCost" HorizontalAlignment="Left" Height="22" Margin="235,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="10" RenderTransformOrigin="1.067,0.364"/>
-        <TextBox x:Name="txtbDesc" HorizontalAlignment="Left" Height="22" Margin="105,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" RenderTransformOrigin="0.5,0.5" FontSize="10">
+        <TextBox x:Name="txtbCode" HorizontalAlignment="Left" Height="23" Margin="10,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" FontSize="10" IsReadOnly="True" BindingGroup="{Binding SelectedItem.Code, ElementName=dgListOfItems}"/>
+        <TextBox x:Name="txtbCost" HorizontalAlignment="Left" Height="22" Margin="235,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="10" RenderTransformOrigin="1.067,0.364" BindingGroup="{Binding SelectedItem.Cost, ElementName=dgListOfItems}"/>
+        <TextBox x:Name="txtbDesc" HorizontalAlignment="Left" Height="22" Margin="105,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" RenderTransformOrigin="0.5,0.5" FontSize="10" BindingGroup="{Binding SelectedItem.Description, ElementName=dgListOfItems}">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -46,7 +46,7 @@
         <Label x:Name="lblCodeSelected" Content="Code Selected:" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblCostSelected" Content="Cost Selected:" HorizontalAlignment="Left" Margin="235,33,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblDescSelected" Content="Description Selected:" HorizontalAlignment="Left" Margin="105,33,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="saveItemChanges" Content="Save Changes" HorizontalAlignment="Left" Margin="179,81,0,0" VerticalAlignment="Top" Width="82" Height="21" RenderTransformOrigin="0.476,0.048" IsEnabled="False" Click="SaveChanges_Click"/>
+        <Button x:Name="btnsaveItemChanges" Content="Save Changes" HorizontalAlignment="Left" Margin="179,81,0,0" VerticalAlignment="Top" Width="82" Height="21" RenderTransformOrigin="0.476,0.048" IsEnabled="False" Click="SaveChanges_Click"/>
 
     </Grid>
 </Window>

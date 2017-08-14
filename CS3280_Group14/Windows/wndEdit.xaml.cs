@@ -115,7 +115,7 @@ namespace CS3280_Group14
                 if (item.ValidItemDesc(enteredDesc) && item.ValidItemCost(enteredCost))
                 {
                     MessageBox.Show("Validation is complete you may now save changes.");
-                    btnAddNewItem.IsEnabled = true;
+                    btnsaveItemChanges.IsEnabled = true;
                 }
                 else
                     MessageBox.Show("Please only enter letters for the Description(allows apaces) and numbers for the Cost");
