@@ -34,7 +34,7 @@ namespace CS3280_Group14
         /// <returns></returns>
         public bool ValidItemDesc(string input)
         {
-            bool result = Regex.IsMatch(input, "^[a-zA-Z //]+$");
+            bool result = Regex.IsMatch(input, "^[a-z,A-Z,//, ]+$");
             return result;
         }
 
@@ -45,7 +45,7 @@ namespace CS3280_Group14
         /// <returns></returns>
         public bool ValidItemCode(string input)
         {
-            bool result = Regex.IsMatch(input, "^[a-zA-Z]+$");
+            bool result = Regex.IsMatch(input, "^[a-z,A-Z,0-9]+$");
             return result;
         }
 
