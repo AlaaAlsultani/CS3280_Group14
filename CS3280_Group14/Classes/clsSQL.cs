@@ -327,6 +327,11 @@ namespace CS3280_Group14
             }
         }
 
+        /// <summary>
+        /// Gets the itemCode from the ItemDesc table
+        /// </summary>
+        /// <param name="sAutoGenItemCode"></param>
+        /// <returns></returns>
         public string SelectItemCode(string sAutoGenItemCode)
         {
             try
@@ -372,24 +377,6 @@ namespace CS3280_Group14
             {
                 return "UPDATE ItemDesc SET ItemDesc = " + sNewItemDesc + ", Cost = '" 
                     + NewCost + "' WHERE ItemCode = " + sItemCode + ";";
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Generate sql query code to grab item with the item code
-        /// </summary>
-        /// <param name="sItemCode">Item Code</param>
-        /// <returns>sql query string</returns>
-        public string SetItemCode(string sItemCode)
-        {
-            try
-            {
-                return "SELECT ItemCode FROM ItemDesc WHERE ItemCode = '" + sItemCode + "';";
             }
             catch (Exception ex)
             {

@@ -41,6 +41,11 @@ namespace CS3280_Group14
         /// Used in Update and Add methods
         /// </summary>
         private bool isUpdateItem;
+
+        /// <summary>
+        /// To access my window view
+        /// </summary>
+        private wndEdit editWindow;
         #endregion
 
         #region Constructor
@@ -51,6 +56,7 @@ namespace CS3280_Group14
                 InitializeComponent();
                 queries = new clsDBQueries();
                 item = new clsItem();
+                editWindow = new wndEdit();
                 listOfItems = queries.GetAllFromItemDesc();
                 isUpdateItem = false;
                 dgListOfItems.ItemsSource = listOfItems;
@@ -111,11 +117,6 @@ namespace CS3280_Group14
         /// <param name="e"></param>
         private void UpdateItem_Click(object sender, RoutedEventArgs e)
         {
-            //This method needs to update the selected item from the list.
-            //When an item is updated, the code must not be allowed to be updated (is the PK).
-            //Only the description and cost may be updated.
-            //box as to reflect any changes made by the user.
-            //Update the current invoice because its item name might have been updated.
             try
             {
                 string enteredDesc = txtbDesc.Text;
@@ -129,6 +130,9 @@ namespace CS3280_Group14
                 }
                 else
                     MessageBox.Show("Please only enter letters for the Description(allows apaces) and numbers for the Cost");
+                Hide();
+                editWindow.ShowDialog();
+                Show();
             }
             catch (Exception ex)
             {
@@ -144,14 +148,18 @@ namespace CS3280_Group14
         /// <param name="e"></param>
         private void DeleteItem_Click(object sender, RoutedEventArgs e)
         {
-            //This method needs to remove the selected item from the list.
-            //Running total of the cost should be displayed as items are deleted.
             //If the user tries to delete an item that is on an invoice, don't allow the user
             //to do so.
             //Give the user a warning message that tells them which invoices that item is used on.
             try
             {
+                //if ()
+                //{
 
+                //}
+                queries.DeleteItem(txtbCode.Text);
+                listOfItems = queries.GetAllFromItemDesc();
+                dgListOfItems.ItemsSource = listOfItems;
             }
             catch (Exception ex)
             {
@@ -162,7 +170,7 @@ namespace CS3280_Group14
         }
 
         /// <summary>
-        /// Adds a new item to the list
+        /// Adds a new item to the list if valid
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -170,8 +178,6 @@ namespace CS3280_Group14
         {
             try
             {
-                //This method needs to add an item to the list. 
-                //Running total of the cost should be displayed as items are entered.
                 string enteredDesc = txtbDesc.Text;
                 string enteredCost = txtbCost.Text;
 
@@ -180,11 +186,11 @@ namespace CS3280_Group14
                     MessageBox.Show("Validation is complete you may now add new item by clicking the Save Changes button.");
                     btnsaveItemChanges.IsEnabled = true;
                 }
-                if (!(item.ValidItemDesc(enteredDesc) && item.ValidItemCost(enteredCost)))
+                else
                     MessageBox.Show("Please only enter letters for the Description(allows apaces and /) and numbers for the Cost");
-                else 
-                    ShowDialog();
-                dgListOfItems.ItemsSource = listOfItems;
+                Hide();
+                editWindow.ShowDialog();
+                Show();
             
             }
             catch (Exception ex)
@@ -206,10 +212,18 @@ namespace CS3280_Group14
                 if (isUpdateItem)
                 {
                     queries.UpdateItem(txtbCode.Text, txtbCost.Text, txtbDesc.Text);
+                    listOfItems = queries.GetAllFromItemDesc();
                     dgListOfItems.ItemsSource = listOfItems;
+                    btnsaveItemChanges.IsEnabled = false;
                 }
-                queries.AddNewItem(txtbCode.Text, txtbCost.Text, txtbDesc.Text);
-                dgListOfItems.ItemsSource = listOfItems;
+                else
+                {
+                    queries.AddNewItem(txtbCode.Text, txtbCost.Text, txtbDesc.Text);
+                    listOfItems = queries.GetAllFromItemDesc();
+                    dgListOfItems.ItemsSource = listOfItems;
+                    btnsaveItemChanges.IsEnabled = false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -218,24 +232,5 @@ namespace CS3280_Group14
             }
         }
         #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ItemSelected(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                //txtbCode.Text = dgListOfItems.SelectedIndex;
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
     }
 }
