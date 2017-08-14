@@ -318,7 +318,7 @@ namespace CS3280_Group14
             try
             {
                     return "INSERT INTO ItemDesc(ItemCode, ItemDesc, Cost) " +
-                              "VALUES(" + sAutoGenItemCode + ", " + sItemDesc + ", " + Cost + ");";
+                              "VALUES(" + sAutoGenItemCode + ", " + sItemDesc + ", '" + Cost + "');";
             }
             catch (Exception ex)
             {
@@ -370,8 +370,8 @@ namespace CS3280_Group14
         {
             try
             {
-                return "UPDATE ItemDesc SET ItemDesc = " + sNewItemDesc + ", Cost = " 
-                    + NewCost + " WHERE ItemCode = " + sItemCode + ";";
+                return "UPDATE ItemDesc SET ItemDesc = " + sNewItemDesc + ", Cost = '" 
+                    + NewCost + "' WHERE ItemCode = " + sItemCode + ";";
             }
             catch (Exception ex)
             {

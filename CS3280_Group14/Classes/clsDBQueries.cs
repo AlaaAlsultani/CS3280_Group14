@@ -415,7 +415,8 @@ namespace CS3280_Group14
             try
             {
                 string itemCode = sql.SelectItemCode(sAutoGenItemCode);
-                if (itemCode == null)
+                int exists = db.ExecuteNonQuery(itemCode);
+                if (exists == 0)
                 {
                     return false;
                 }
@@ -465,17 +466,50 @@ namespace CS3280_Group14
             }
         }
 
+        /// <summary>
+        /// Adds a new time to ItemDesc table
+        /// </summary>
+        /// <param name="sCode">code</param>
+        /// <param name="cost">cost</param>
+        /// <param name="desc">description</param>
+        /// <returns></returns>
         public string AddNewItem(string sCode,string cost, string desc)
         {
             try
             {
-                while((DoesItemCodeExist(sCode)))
+                string sSQL = "";
+                int iNumReturned;
+
+                if ((DoesItemCodeExist(sCode)))
                 {
                     iAutoGenItemCode++;
-                    break;
+                    sSQL = sql.AddNewItem(Convert.ToString(iAutoGenItemCode), desc, cost);
+
+                    //Insert new item into ItemDesc table
+                    iNumReturned = db.ExecuteNonQuery(sSQL);
+
+                    return sSQL;
                 }
-            
-                return sql.AddNewItem(Convert.ToString(iAutoGenItemCode), desc , cost);
+
+                sSQL = sql.AddNewItem(sCode, cost, desc);
+                iNumReturned = db.ExecuteNonQuery(sSQL);
+                return sSQL;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        public void UpdateItem(string sCode, string cost, string desc)
+        {
+            try
+            {
+                string sSQL = sql.UpdateItem(sCode,cost,desc);
+
+                //Update ItemDesc Table
+                int iNumReturned = db.ExecuteNonQuery(sSQL);
 
             }
             catch (Exception ex)
@@ -485,11 +519,15 @@ namespace CS3280_Group14
             }
         }
 
-        public string UpdateItem(string sCode, string cost, string desc)
+        public void DeleteItem(string sCode)
         {
             try
             {
-                return null;                
+                string sSQL = sql.DeleteItem(sCode);
+
+                //Delete item from ItemDesc table
+                int iNumReturned = db.ExecuteNonQuery(sSQL);
+
             }
             catch (Exception ex)
             {

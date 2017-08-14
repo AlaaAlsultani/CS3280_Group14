@@ -37,7 +37,10 @@ namespace CS3280_Group14
         /// </summary>
         private clsItem item;
 
-
+        /// <summary>
+        /// Used in Update and Add methods
+        /// </summary>
+        private bool isUpdateItem;
         #endregion
 
         #region Constructor
@@ -49,7 +52,7 @@ namespace CS3280_Group14
                 queries = new clsDBQueries();
                 item = new clsItem();
                 listOfItems = queries.GetAllFromItemDesc();
-
+                isUpdateItem = false;
                 dgListOfItems.ItemsSource = listOfItems;
             }
             catch (Exception ex)
@@ -60,7 +63,7 @@ namespace CS3280_Group14
         }
         #endregion
 
-        #region Methods
+        #region Helper Methods
         /// <summary>
         /// Control how the window closes when the x is clicked
         /// </summary>
@@ -98,13 +101,19 @@ namespace CS3280_Group14
                 System.IO.File.AppendAllText(@"C:\Error.txt", Environment.NewLine + "HandleError Exception: " + ex.Message);
             }
         }
+        #endregion
 
+        #region Event Methods
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateItem_Click(object sender, RoutedEventArgs e)
         {
             //This method needs to update the selected item from the list.
             //When an item is updated, the code must not be allowed to be updated (is the PK).
             //Only the description and cost may be updated.
-            //When user closes the update definition table form, make sure to update the drop-down
             //box as to reflect any changes made by the user.
             //Update the current invoice because its item name might have been updated.
             try
@@ -115,6 +124,7 @@ namespace CS3280_Group14
                 if (item.ValidItemDesc(enteredDesc) && item.ValidItemCost(enteredCost))
                 {
                     MessageBox.Show("Validation is complete you may now save changes.");
+                    isUpdateItem = true;
                     btnsaveItemChanges.IsEnabled = true;
                 }
                 else
@@ -127,7 +137,11 @@ namespace CS3280_Group14
             }
         }
 
-
+        /// <summary>
+        /// Deletes the seelcted item from the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteItem_Click(object sender, RoutedEventArgs e)
         {
             //This method needs to remove the selected item from the list.
@@ -147,19 +161,31 @@ namespace CS3280_Group14
 
         }
 
+        /// <summary>
+        /// Adds a new item to the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddNewItem_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 //This method needs to add an item to the list. 
                 //Running total of the cost should be displayed as items are entered.
-                string newDesc = txtbDesc.Text;
-                string sCode = txtbCode.Text;
-                decimal newCost = Convert.ToDecimal(txtbCost.Text);
+                string enteredDesc = txtbDesc.Text;
+                string enteredCost = txtbCost.Text;
 
-                queries.AddNewItem(sCode, Convert.ToString(newCost), newDesc);
-
+                if (item.ValidItemDesc(enteredDesc) && item.ValidItemCost(enteredCost))
+                {
+                    MessageBox.Show("Validation is complete you may now add new item by clicking the Save Changes button.");
+                    btnsaveItemChanges.IsEnabled = true;
+                }
+                if (!(item.ValidItemDesc(enteredDesc) && item.ValidItemCost(enteredCost)))
+                    MessageBox.Show("Please only enter letters for the Description(allows apaces and /) and numbers for the Cost");
+                else 
+                    ShowDialog();
                 dgListOfItems.ItemsSource = listOfItems;
+            
             }
             catch (Exception ex)
             {
@@ -168,14 +194,21 @@ namespace CS3280_Group14
             }
         }
 
-
-        #endregion
-
+        /// <summary>
+        /// Saves changes to an item in the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                queries.UpdateItem(txtbCode.Text,txtbCost.Text,txtbDesc.Text);
+                if (isUpdateItem)
+                {
+                    queries.UpdateItem(txtbCode.Text, txtbCost.Text, txtbDesc.Text);
+                    dgListOfItems.ItemsSource = listOfItems;
+                }
+                queries.AddNewItem(txtbCode.Text, txtbCost.Text, txtbDesc.Text);
                 dgListOfItems.ItemsSource = listOfItems;
             }
             catch (Exception ex)
@@ -184,7 +217,13 @@ namespace CS3280_Group14
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+        #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ItemSelected(object sender, SelectionChangedEventArgs e)
         {
             try
