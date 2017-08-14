@@ -1,4 +1,4 @@
-﻿<Window x:Class="CS3280_Group14.wndEdit"
+﻿<Window x:Name="EditWindow" x:Class="CS3280_Group14.wndEdit"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,24 +6,33 @@
         xmlns:local="clr-namespace:CS3280_Group14"
         mc:Ignorable="d"
         Closing="Window_Closing"
-        Title="EditWindow" Height="300" Width="300">
-    <Grid>
-        <Button Content="Add New Item" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" FontSize="10" Click="AddNewItem_Click"/>
-        <Button Content="Delete Item" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" Width="75" FontSize="10" Click="DeleteItem_Click"/>
-        <Button Content="Update Item" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="75" FontSize="10" Click="UpdateItem_Click"/>
-        <DataGrid HorizontalAlignment="Left" Height="193" Margin="11,62,0,0" VerticalAlignment="Top" Width="158" RenderTransformOrigin="0.5,0.5" FontSize="10">
-            <DataGrid.RenderTransform>
+        Title="EditWindow" Height="480" Width="350" SizeToContent="WidthAndHeight">
+    <Grid Margin="0,0,0,-21">
+        <Button x:Name="btnAddNewItem" Content="Add New Item" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="89" Click="AddNewItem_Click"/>
+        <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="118,10,0,0" VerticalAlignment="Top" Width="89" Click="DeleteItem_Click" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
                     <SkewTransform/>
-                    <RotateTransform Angle="-0.196"/>
+                    <RotateTransform Angle="-0.293"/>
                     <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="btnUpdateItem" Content="Update Item" HorizontalAlignment="Left" Margin="226,10,0,0" VerticalAlignment="Top" Width="89" Click="UpdateItem_Click"/>
+        <DataGrid x:Name="dgListOfItems" HorizontalAlignment="Left" Height="320" Margin="23,115,0,0" VerticalAlignment="Top" Width="236" RenderTransformOrigin="0.5,0.5" FontSize="10" SelectionChanged="ItemSelected">
+            <DataGrid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.368"/>
+                    <RotateTransform Angle="-0.196"/>
+                    <TranslateTransform X="-0.488" Y="0.002"/>
                 </TransformGroup>
             </DataGrid.RenderTransform>
         </DataGrid>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="176,62,0,0" TextWrapping="Wrap" Text="Code Selected" VerticalAlignment="Top" Width="106" FontSize="10"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="176,101,0,0" TextWrapping="Wrap" Text="Cost Selected" VerticalAlignment="Top" Width="106" FontSize="10"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="176,140,0,0" TextWrapping="Wrap" Text="Descript. Selected" VerticalAlignment="Top" Width="105" RenderTransformOrigin="0.5,0.5" FontSize="10">
+        <TextBox x:Name="txtbCode" HorizontalAlignment="Left" Height="23" Margin="10,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" FontSize="10" IsReadOnly="True"/>
+        <TextBox x:Name="txtbCost" HorizontalAlignment="Left" Height="22" Margin="235,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="10" RenderTransformOrigin="1.067,0.364"/>
+        <TextBox x:Name="txtbDesc" HorizontalAlignment="Left" Height="22" Margin="105,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" RenderTransformOrigin="0.5,0.5" FontSize="10">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -33,7 +42,11 @@
                 </TransformGroup>
             </TextBox.RenderTransform>
         </TextBox>
-        <Label Content="All Items in a List" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <Label x:Name="lblAllItems" Content="All Items in the Invoice:" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblCodeSelected" Content="Code Selected:" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblCostSelected" Content="Cost Selected:" HorizontalAlignment="Left" Margin="235,33,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblDescSelected" Content="Description Selected:" HorizontalAlignment="Left" Margin="105,33,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="saveItemChanges" Content="Save Changes" HorizontalAlignment="Left" Margin="179,81,0,0" VerticalAlignment="Top" Width="82" Height="21" RenderTransformOrigin="0.476,0.048" IsEnabled="False" Click="SaveChanges_Click"/>
 
     </Grid>
 </Window>
